@@ -7,6 +7,7 @@ const path = require("node:path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+const { InjectManifest } = require("workbox-webpack-plugin");
 const glob = require("glob");
 
 const nodeFlags = "--no-warnings --no-deprecation";
@@ -176,6 +177,16 @@ module.exports = function (grunt) {
                         reportFilename: "BundleAnalyzerReport.html",
                         openAnalyzer: false,
                         excludeAssets: /.*Worker.js/
+                    }),
+                    // Service Worker: pre-cache all static assets and worker chunks
+                    // so repeat visits load instantly from the browser cache.
+                    new InjectManifest({
+                        swSrc: "./src/web/workers/ServiceWorker.js",
+                        swDest: "sw.js",
+                        // Exclude source maps and the bundle analyser report
+                        exclude: [/\.map$/, /BundleAnalyzerReport\.html$/],
+                        // Allow the large ChefWorker chunk through (default limit: 2MB)
+                        maximumFileSizeToCacheInBytes: 20 * 1024 * 1024,
                     }),
                 ]
             };

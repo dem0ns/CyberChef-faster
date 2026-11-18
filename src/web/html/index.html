@@ -888,5 +888,18 @@
             </div>
         </div>
 
+        <script>
+            // Register the Service Worker so all static assets (main.js,
+            // worker chunks, fonts, CSS) are pre-cached after the first visit.
+            if ("serviceWorker" in navigator) {
+                window.addEventListener("load", function () {
+                    navigator.serviceWorker.register("sw.js").catch(function () {
+                        // SW registration is a progressive enhancement — silently
+                        // ignore failures (private browsing, restrictive headers, …)
+                    });
+                });
+            }
+        </script>
+
     </body>
 </html>
