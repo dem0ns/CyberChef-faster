@@ -92,6 +92,12 @@
     "webpack-bundle-analyzer": "^5.3.3",
     "webpack-dev-server": "^6.0.0",
     "webpack-node-externals": "^3.0.0",
+    "workbox-cacheable-response": "^7.4.1",
+    "workbox-expiration": "^7.4.1",
+    "workbox-precaching": "^7.4.1",
+    "workbox-routing": "^7.4.1",
+    "workbox-strategies": "^7.4.1",
+    "workbox-webpack-plugin": "^7.4.1",
     "worker-loader": "^3.0.8"
   },
   "dependencies": {
